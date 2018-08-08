@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>猜数字</title>
+ <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript">
+     window.onload=function(){
+    	 $.ajax({
+    		 	url:"/makeNumber",
+    		 	method: 'GET'
+    	 })
+    }
+    </script>
+</head>
+<body>
+随机数已生成，请猜数字:<br>
+<input type="text" name="math" id="math" onkeyup="value=value.replace(/[^\d]/g,'')">
+<input type="submit" value="验证" id="submitNum">
+<br>
+
+<br>
+<div id=result style="color:#F00"></div>
+<script type="text/javascript">
+ $("#submitNum").click(function(){
+	 var data = $("#math").val();
+	    $.ajax({ 
+   	     type:'POST',  
+   	     url:"/guessNumber", 
+   	     data:{guessNumber:data},  
+   	     success:function(msg){      
+   	    	$("#result").html(msg);
+   	     }
+   	    })
+ });
+ </script>
+</body>
+</html>
